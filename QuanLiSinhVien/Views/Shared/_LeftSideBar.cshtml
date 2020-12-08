@@ -1,0 +1,131 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<QuanLiSinhVien.Models.Person> SignInManager
+@inject UserManager<QuanLiSinhVien.Models.Person> UserManager
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    @if (User.IsInRole("Admin"))
+    {
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/Admin">
+            <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fas fa-laugh-wink"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+        </a>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item active">
+            <a class="nav-link" href="/Admin">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+
+
+        <!-- Nav Item - student Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStudents"
+               aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-user-graduate"></i>
+                <span>Students Manager</span>
+            </a>
+            <div id="collapseStudents" class="collapse" aria-labelledby="headingStudents" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Action:</h6>
+                    <a class="collapse-item" href="/Admin/Student/Create">Create Student Account</a>
+                    <a class="collapse-item" href="/Admin/Student">List Students</a>
+                </div>
+            </div>
+        </li>
+        <!-- Nav Item - Teacher Collapse Menu -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTeachers"
+               aria-expanded="true" aria-controls="collapseUtilities">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <span>Teachers Manager</span>
+            </a>
+            <div id="collapseTeachers" class="collapse" aria-labelledby="headingTeachers"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Action:</h6>
+                    <a class="collapse-item" href="/Admin/Teacher/Create">Create Teacher Account</a>
+                    <a class="collapse-item" href="/Admin/Teacher">List Teacher</a>
+                </div>
+            </div>
+        </li>
+        <!-- Nav Item - class Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseClass"
+               aria-expanded="true" aria-controls="collapseUtilities">
+                <i class="fas fa-university"></i>
+                <span>Classes Manager</span>
+            </a>
+            <div id="collapseClass" class="collapse" aria-labelledby="headingClass"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Action:</h6>
+                    <a class="collapse-item" href="/Admin/Class/Upsert">Create Class </a>
+                    <a class="collapse-item" href="/Admin/Class">List Classes</a>
+                </div>
+            </div>
+        </li>
+        <!-- Nav Item - class Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFaculties"
+               aria-expanded="true" aria-controls="collapseFaculties">
+                <i class="fas fa-chalkboard"></i>
+                <span>Faculties Manager</span>
+            </a>
+            <div id="collapseFaculties" class="collapse" aria-labelledby="headingFaculties"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Action:</h6>
+                    <a class="collapse-item" href="/Admin/Faculty/Upsert">Create Class </a>
+                    <a class="collapse-item" href="/Admin/Faculty">List Classes</a>
+                </div>
+            </div>
+        </li>
+
+    }
+    @if (User.IsInRole("Teacher"))
+    {
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fas fa-laugh-wink"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3">SB Teacher <sup>2</sup></div>
+        </a>
+    }
+    @if (User.IsInRole("Student"))
+    {
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fas fa-laugh-wink"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3">SB Student <sup>2</sup></div>
+        </a>
+    }
+
+
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+
+
+</ul>
+
