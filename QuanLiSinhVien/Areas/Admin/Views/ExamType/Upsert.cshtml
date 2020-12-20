@@ -1,10 +1,14 @@
 ﻿@model ExamType
 @{
-    ViewData["Title"] = "Upsert";
+    if (Model.Id == null)
+        ViewData["Title"] = "Create Exam Type";
+    else
+        ViewData["Title"] = "Update Exam Type";
+    
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Usert</h1>
+<h1 class="text-center">@ViewData["Title"] </h1>
 
 <hr />
 <div class="row justify-content-center">

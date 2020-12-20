@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using QuanLiSinhVien.Data;
 using QuanLiSinhVien.Models;
 using QuanLiSinhVien.Models.ViewModels;
+using QuanLiSinhVien.Utilities;
 
 namespace QuanLiSinhVien.Areas.Admin.Controllers
 {
@@ -50,7 +51,7 @@ namespace QuanLiSinhVien.Areas.Admin.Controllers
                 var result = await _userManager.CreateAsync(user, vm.Password);
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(user, "Student");
+                    await _userManager.AddToRoleAsync(user,SD.Teacher);
                     var s = await _userManager.FindByNameAsync(user.UserName);
                     var teacher = new Models.Teacher() {  PersonId = s.Id, FacultyId = vm.FaculityId };
                     _db.Teachers.Add(teacher);

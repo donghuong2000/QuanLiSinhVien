@@ -23,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\QuanLiSinhVien.Data\QuanLiSinhVien.Data.csproj" />
     <ProjectReference Include="..\QuanLiSinhVien.Models\QuanLiSinhVien.Models.csproj" />
+    <ProjectReference Include="..\QuanLiSinhVien.Utilities\QuanLiSinhVien.Utilities.csproj" />
   </ItemGroup>
 
 </Project>

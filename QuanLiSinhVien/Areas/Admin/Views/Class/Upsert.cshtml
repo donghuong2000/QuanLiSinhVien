@@ -1,13 +1,13 @@
 ﻿@model QuanLiSinhVien.Models.Class
 
 @{
-    ViewData["Title"] = "Usert";
+    if(Model.Id==null)
+        ViewData["Title"] = "Create Class";
+    else
+        ViewData["Title"] = "Update Class";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h1>Usert</h1>
-
-<h4>Class</h4>
+    <h1  class="text-center">@ViewData["Title"]</h1>
 <hr />
 <div class="row justify-content-center">
     <div class="col-md-6">

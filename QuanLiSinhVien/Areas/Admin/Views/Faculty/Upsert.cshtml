@@ -1,10 +1,13 @@
 ﻿@model Faculty
 @{
-    ViewData["Title"] = "Upsert";
+    if(Model.Id==null)
+        ViewData["Title"] = "Create Faculty";
+    else
+        ViewData["Title"] = "Update Faculty";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Usert</h1>
+<h1 class="text-center">@ViewData["Title"]</h1>
 
 <hr />
 <div class="row justify-content-center">
