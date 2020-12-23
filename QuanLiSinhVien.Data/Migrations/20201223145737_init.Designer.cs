@@ -10,14 +10,14 @@ using QuanLiSinhVien.Data;
 namespace QuanLiSinhVien.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201208010459_intitDb")]
-    partial class intitDb
+    [Migration("20201223145737_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.8")
+                .HasAnnotation("ProductVersion", "3.1.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -172,12 +172,10 @@ namespace QuanLiSinhVien.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -214,12 +212,10 @@ namespace QuanLiSinhVien.Data.Migrations
                         .HasColumnType("varchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -229,7 +225,7 @@ namespace QuanLiSinhVien.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("QuanLiSinhVien.Data.QuanLiSinhVien.Models.Class", b =>
+            modelBuilder.Entity("QuanLiSinhVien.Models.Class", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("varchar(450)")
@@ -245,7 +241,7 @@ namespace QuanLiSinhVien.Data.Migrations
                     b.ToTable("Classes");
                 });
 
-            modelBuilder.Entity("QuanLiSinhVien.Data.QuanLiSinhVien.Models.ExamScore", b =>
+            modelBuilder.Entity("QuanLiSinhVien.Models.ExamScore", b =>
                 {
                     b.Property<string>("ExamTypeId")
                         .HasColumnType("varchar(450)")
@@ -274,7 +270,7 @@ namespace QuanLiSinhVien.Data.Migrations
                     b.ToTable("ExamScore");
                 });
 
-            modelBuilder.Entity("QuanLiSinhVien.Data.QuanLiSinhVien.Models.ExamType", b =>
+            modelBuilder.Entity("QuanLiSinhVien.Models.ExamType", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("varchar(450)")
@@ -290,7 +286,7 @@ namespace QuanLiSinhVien.Data.Migrations
                     b.ToTable("ExamType");
                 });
 
-            modelBuilder.Entity("QuanLiSinhVien.Data.QuanLiSinhVien.Models.Faculty", b =>
+            modelBuilder.Entity("QuanLiSinhVien.Models.Faculty", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("varchar(450)")
@@ -306,7 +302,7 @@ namespace QuanLiSinhVien.Data.Migrations
                     b.ToTable("Faculties");
                 });
 
-            modelBuilder.Entity("QuanLiSinhVien.Data.QuanLiSinhVien.Models.Student", b =>
+            modelBuilder.Entity("QuanLiSinhVien.Models.Student", b =>
                 {
                     b.Property<string>("PersonId")
                         .HasColumnType("varchar(450)")
@@ -336,7 +332,7 @@ namespace QuanLiSinhVien.Data.Migrations
                     b.ToTable("Students");
                 });
 
-            modelBuilder.Entity("QuanLiSinhVien.Data.QuanLiSinhVien.Models.StudentSubject", b =>
+            modelBuilder.Entity("QuanLiSinhVien.Models.StudentSubject", b =>
                 {
                     b.Property<string>("StudentId")
                         .HasColumnType("varchar(450)")
@@ -356,7 +352,7 @@ namespace QuanLiSinhVien.Data.Migrations
                     b.ToTable("StudentSubject");
                 });
 
-            modelBuilder.Entity("QuanLiSinhVien.Data.QuanLiSinhVien.Models.Subject", b =>
+            modelBuilder.Entity("QuanLiSinhVien.Models.Subject", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("varchar(450)")
@@ -382,7 +378,7 @@ namespace QuanLiSinhVien.Data.Migrations
                     b.ToTable("Subjects");
                 });
 
-            modelBuilder.Entity("QuanLiSinhVien.Data.QuanLiSinhVien.Models.Teacher", b =>
+            modelBuilder.Entity("QuanLiSinhVien.Models.Teacher", b =>
                 {
                     b.Property<string>("PersonId")
                         .HasColumnType("varchar(450)")
@@ -402,7 +398,7 @@ namespace QuanLiSinhVien.Data.Migrations
                     b.ToTable("Teachers");
                 });
 
-            modelBuilder.Entity("QuanLiSinhVien.Data.QuanLiSinhVien.Models.Person", b =>
+            modelBuilder.Entity("QuanLiSinhVien.Models.Person", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
@@ -468,71 +464,71 @@ namespace QuanLiSinhVien.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("QuanLiSinhVien.Data.QuanLiSinhVien.Models.ExamScore", b =>
+            modelBuilder.Entity("QuanLiSinhVien.Models.ExamScore", b =>
                 {
-                    b.HasOne("QuanLiSinhVien.Data.QuanLiSinhVien.Models.ExamType", "ExamType")
+                    b.HasOne("QuanLiSinhVien.Models.ExamType", "ExamType")
                         .WithMany()
                         .HasForeignKey("ExamTypeId")
                         .HasConstraintName("FK_ExamScore_ExamType");
 
-                    b.HasOne("QuanLiSinhVien.Data.QuanLiSinhVien.Models.Student", "Student")
+                    b.HasOne("QuanLiSinhVien.Models.Student", "Student")
                         .WithMany()
                         .HasForeignKey("StudentId")
                         .HasConstraintName("FK_ExamScore_Student");
 
-                    b.HasOne("QuanLiSinhVien.Data.QuanLiSinhVien.Models.Subject", "Subject")
+                    b.HasOne("QuanLiSinhVien.Models.Subject", "Subject")
                         .WithMany()
                         .HasForeignKey("SubjectId")
                         .HasConstraintName("FK_ExamScore_Subject");
                 });
 
-            modelBuilder.Entity("QuanLiSinhVien.Data.QuanLiSinhVien.Models.Student", b =>
+            modelBuilder.Entity("QuanLiSinhVien.Models.Student", b =>
                 {
-                    b.HasOne("QuanLiSinhVien.Data.QuanLiSinhVien.Models.Class", "Class")
+                    b.HasOne("QuanLiSinhVien.Models.Class", "Class")
                         .WithMany("Students")
                         .HasForeignKey("ClassId")
                         .HasConstraintName("FK_Student_Class");
 
-                    b.HasOne("QuanLiSinhVien.Data.QuanLiSinhVien.Models.Person", "Person")
+                    b.HasOne("QuanLiSinhVien.Models.Person", "Person")
                         .WithOne("Students")
-                        .HasForeignKey("QuanLiSinhVien.Data.QuanLiSinhVien.Models.Student", "PersonId")
+                        .HasForeignKey("QuanLiSinhVien.Models.Student", "PersonId")
                         .HasConstraintName("FK_Student_Person")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("QuanLiSinhVien.Data.QuanLiSinhVien.Models.StudentSubject", b =>
+            modelBuilder.Entity("QuanLiSinhVien.Models.StudentSubject", b =>
                 {
-                    b.HasOne("QuanLiSinhVien.Data.QuanLiSinhVien.Models.Student", "Student")
+                    b.HasOne("QuanLiSinhVien.Models.Student", "Student")
                         .WithMany("StudentSubject")
                         .HasForeignKey("StudentId")
                         .HasConstraintName("FK_Subject_Student")
                         .IsRequired();
 
-                    b.HasOne("QuanLiSinhVien.Data.QuanLiSinhVien.Models.Subject", "Subject")
+                    b.HasOne("QuanLiSinhVien.Models.Subject", "Subject")
                         .WithMany("StudentSubject")
                         .HasForeignKey("SubjectId")
                         .HasConstraintName("FK_Student_Subject")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("QuanLiSinhVien.Data.QuanLiSinhVien.Models.Subject", b =>
+            modelBuilder.Entity("QuanLiSinhVien.Models.Subject", b =>
                 {
-                    b.HasOne("QuanLiSinhVien.Data.QuanLiSinhVien.Models.Teacher", "Teacher")
+                    b.HasOne("QuanLiSinhVien.Models.Teacher", "Teacher")
                         .WithMany("Subjects")
                         .HasForeignKey("TeacherId")
                         .HasConstraintName("FK_Subjects_Teachers");
                 });
 
-            modelBuilder.Entity("QuanLiSinhVien.Data.QuanLiSinhVien.Models.Teacher", b =>
+            modelBuilder.Entity("QuanLiSinhVien.Models.Teacher", b =>
                 {
-                    b.HasOne("QuanLiSinhVien.Data.QuanLiSinhVien.Models.Faculty", "Faculty")
+                    b.HasOne("QuanLiSinhVien.Models.Faculty", "Faculty")
                         .WithMany("Teachers")
                         .HasForeignKey("FacultyId")
                         .HasConstraintName("FK_Teachers_Faculties");
 
-                    b.HasOne("QuanLiSinhVien.Data.QuanLiSinhVien.Models.Person", "Person")
+                    b.HasOne("QuanLiSinhVien.Models.Person", "Person")
                         .WithOne("Teachers")
-                        .HasForeignKey("QuanLiSinhVien.Data.QuanLiSinhVien.Models.Teacher", "PersonId")
+                        .HasForeignKey("QuanLiSinhVien.Models.Teacher", "PersonId")
                         .HasConstraintName("FK_Teachers_Person")
                         .IsRequired();
                 });
