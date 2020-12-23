@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using QuanLiSinhVien.Data;
 using QuanLiSinhVien.Utilities;
@@ -20,7 +21,9 @@ namespace QuanLiSinhVien.Areas.Teacher.Controllers
         }
 
         public IActionResult Index()
+
         {
+            ViewBag.SubjectList = new SelectList(_db.Subjects.Where(x => x.TeacherId == null).ToList(),"Id","Name");
             return View();
         }
 
@@ -47,9 +50,50 @@ namespace QuanLiSinhVien.Areas.Teacher.Controllers
             
         }
         // đăng kí môn dạy
-        public IActionResult Registration()
+        public IActionResult Registration(string id)
         {
+            try
+            {
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                var subject = _db.Subjects.Find(id);
+                subject.TeacherId = userId;
+                _db.Subjects.Update(subject);
+                _db.SaveChanges();
+                return Json(new { success = true, message = "Registration Subject success" });
+            }
+            catch (Exception e)
+            {
+                return Json(new { success = false, message = e.Message });
+
+            } 
+        }
+
+
+        public IActionResult Info()
+        {
+           
             return View();
+        }
+
+        public IActionResult GetInfo(string id)
+        {
+            if (id == null)
+                return NotFound();
+            var obj = _db.ExamScore
+                .Include(x => x.Subject)
+                .Include(x => x.Student).ThenInclude(x => x.Person)
+                .Include(x => x.Student).ThenInclude(x => x.Class)
+                .Include(x => x.ExamType)
+                .Where(x => x.SubjectId == id)
+                .Select(x => new {
+                    // info student
+                    studentId = x.Student.PersonId,
+                    studentCode = x.Student.StudentCode,
+                    studentName = x.Student.Person.Name,
+                    studentClass = x.Student.Class.Name,
+                    studentAvg = _db.ExamScore.Where(y => y.StudentId == x.StudentId && y.SubjectId == x.SubjectId).Select(x => x.Score).Average()
+                }).ToList();
+            return Json(new { data = obj });
         }
     }
 }
