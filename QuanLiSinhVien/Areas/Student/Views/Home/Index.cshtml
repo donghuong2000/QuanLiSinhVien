@@ -4,5 +4,51 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
 
+<a data-toggle="modal" data-target="#registerSubject" class="ml-5 btn btn-primary">Join Subject</a>
+
+
+<div class="container" id="studentScoreInfo">
+
+
+
+</div>
+<div class="modal fade" id="registerSubject" tabindex="-1" role="dialog" aria-labelledby="registerSubjectLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="registerSubjectLabel">Join Subject</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="regisSubjectForm">
+                    <div class="form-group">
+                        <label class="form-text">Subject</label>
+                        <select class="form-control" asp-items="ViewBag.SubjectList" id="subjectId">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="form-control btn btn-primary" value=" Register" />
+                    </div>
+                </form>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/js/build/toastr.min.js"></script>
+    <script src="~/js/studentSubject.js"></script>
+
+}
+
+
+@section Header{
+    <link href="~/js/build/toastr.css" rel="stylesheet" />
+
+}

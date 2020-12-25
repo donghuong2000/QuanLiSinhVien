@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using QuanLiSinhVien.Data;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 namespace QuanLiSinhVien.Areas.Teacher.Controllers
 {
     [Area("Teacher")]
+    [Authorize(Roles = "Teacher")]
     public class SubjectController : Controller
     {
         private readonly ApplicationDbContext _db;
