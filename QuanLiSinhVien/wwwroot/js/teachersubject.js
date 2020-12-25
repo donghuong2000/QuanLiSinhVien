@@ -12,7 +12,7 @@ $(document).ready(function () {
                 "render": function (data) {
                     return `
                              <div class="text-center">
-                                <a href="/teacher/subject/upsert/${data}" class="btn btn-success text-white" style="cursor:pointer">
+                                <a href="/teacher/subject/info?id=${data}" class="btn btn-success text-white" style="cursor:pointer">
                                     <i class="fas fa-info-circle"></i>
                                 </a>
                                 <a onClick=Delete("/teacher/subject/delete/${data}") class="btn btn-danger text-white" style="cursor:pointer">

@@ -69,9 +69,9 @@ namespace QuanLiSinhVien.Areas.Teacher.Controllers
         }
 
 
-        public IActionResult Info()
+        public IActionResult Info(string id)
         {
-           
+            ViewBag.infoid = id;
             return View();
         }
 
@@ -79,21 +79,25 @@ namespace QuanLiSinhVien.Areas.Teacher.Controllers
         {
             if (id == null)
                 return NotFound();
-            var obj = _db.ExamScore
-                .Include(x => x.Subject)
-                .Include(x => x.Student).ThenInclude(x => x.Person)
-                .Include(x => x.Student).ThenInclude(x => x.Class)
-                .Include(x => x.ExamType)
+            var obj = _db.StudentSubject
                 .Where(x => x.SubjectId == id)
-                .Select(x => new {
-                    // info student
-                    studentId = x.Student.PersonId,
-                    studentCode = x.Student.StudentCode,
+                .Include(x => x.Student).ThenInclude(x => x.Person)
+                .Select(x => new
+                {
+                    studentId = x.SubjectId,
                     studentName = x.Student.Person.Name,
-                    studentClass = x.Student.Class.Name,
-                    studentAvg = _db.ExamScore.Where(y => y.StudentId == x.StudentId && y.SubjectId == x.SubjectId).Select(x => x.Score).Average()
+                    avgScore = _db.ExamScore.Where(y => x.SubjectId == id && y.StudentId == x.StudentId).Select(y => y.Score).Average(),
+                    score = _db.ExamScore.Include(y => y.ExamType).Where(y => x.SubjectId == id && y.StudentId == x.StudentId)
+                                         .Select(y => new
+                                         {
+                                             examtype = y.ExamType.Name,
+                                             mark = y.Score
+                                         })
+                                         .ToList(),
+
                 }).ToList();
-            return Json(new { data = obj });
+                
+            return Json(obj);
         }
     }
 }
