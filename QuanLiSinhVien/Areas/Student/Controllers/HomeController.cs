@@ -4,11 +4,13 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using QuanLiSinhVien.Data;
 using QuanLiSinhVien.Models;
+using QuanLiSinhVien.Models.ViewModels;
 
 namespace QuanLiSinhVien.Areas.Student.Controllers
 {
@@ -17,10 +19,12 @@ namespace QuanLiSinhVien.Areas.Student.Controllers
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _db;
+        private readonly UserManager<Person> _userManager;
 
-        public HomeController(ApplicationDbContext db)
+        public HomeController(ApplicationDbContext db, UserManager<Person> userManager)
         {
             _db = db;
+            _userManager = userManager;
         }
 
         public IActionResult GetAllSubject()
@@ -87,6 +91,62 @@ namespace QuanLiSinhVien.Areas.Student.Controllers
 
                 return Json(new { success = false, message = e.InnerException.Message });
             }
+        }
+
+
+        public IActionResult Profile()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var student = _db.Students.Include(x=>x.Class).Include(x => x.Person).FirstOrDefault(x => x.PersonId == userId);
+            StudentProfileViewModel vm = new StudentProfileViewModel();
+            vm.Student = student;
+
+            return View(vm);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Profile(StudentProfileViewModel vm)
+        {
+            if(ModelState.IsValid)
+            {
+                var student = _db.Students.Include(x => x.Person).Where(x => x.PersonId == vm.Student.PersonId).FirstOrDefault();
+                student.Person.Name = vm.Student.Person.Name;
+                student.Person.Address = vm.Student.Person.Address;
+                student.Person.Email = vm.Student.Person.Email;
+
+                _db.Update(student);
+                _db.SaveChanges();
+                if (vm.IsChangePassworld)
+               {// có đổi mk
+                    try
+                    {
+                        var result = await _userManager.ChangePasswordAsync(student.Person, vm.CurrentPassword, vm.Password);
+                        if (result.Succeeded)
+                        {
+                            return RedirectToAction("index");
+                        }
+                        else
+                        {
+                            foreach (var item in result.Errors)
+                            {
+                                ModelState.AddModelError("", item.Description);
+                            }
+
+                        }
+                    }
+                    catch (Exception e)
+                    {
+
+                        ModelState.AddModelError("", e.Message);
+                    }
+                   
+               }
+                else
+                {
+                    return RedirectToAction("index");
+                }
+              
+            }
+            return View(vm);
         }
     }
 }
