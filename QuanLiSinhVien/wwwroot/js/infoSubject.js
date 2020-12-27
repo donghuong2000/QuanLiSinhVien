@@ -26,7 +26,7 @@ function LoadInfo() {
                     ScoreRaw +=
                              `
                             <div class="col-lg-2 col-md-4 col-sm-6">
-                                   <label>${data[i].score[y].examtype}: </label><span> ${data[i].score[y].mark}</span>
+                                   <label>${data[i].score[y].examType.name}: </label><span> ${data[i].score[y].score}</span>
                              </div>
 
 
@@ -35,7 +35,7 @@ function LoadInfo() {
                  raw+=ScoreRaw+ `
                                 </div>
                                 <h3>điểm trung bình: ${data[i].avgScore}</h3>
-                                <a href="#" class="btn btn-primary">Chỉnh sửa điểm</a>
+                                <a href="/Teacher/Subject/MarkStudent?subjectId=${data[i].subjectId}&studentId=${data[i].studentId}" class="btn btn-primary">Chỉnh sửa điểm</a>
                             </div>
                         </div>`
             }
