@@ -117,26 +117,33 @@ namespace QuanLiSinhVien.Areas.Student.Controllers
                 _db.SaveChanges();
                 if (vm.IsChangePassworld)
                {// có đổi mk
-                    try
+                    if (vm.Password.Length < 4 || vm.CurrentPassword.Length < 4 || vm.ConfirmPassword.Length < 4)
                     {
-                        var result = await _userManager.ChangePasswordAsync(student.Person, vm.CurrentPassword, vm.Password);
-                        if (result.Succeeded)
-                        {
-                            return RedirectToAction("index");
-                        }
-                        else
-                        {
-                            foreach (var item in result.Errors)
-                            {
-                                ModelState.AddModelError("", item.Description);
-                            }
-
-                        }
+                        ModelState.AddModelError("", "Mk ko hợp lệ");
                     }
-                    catch (Exception e)
+                    else
                     {
+                        try
+                        {
+                            var result = await _userManager.ChangePasswordAsync(student.Person, vm.CurrentPassword, vm.Password);
+                            if (result.Succeeded)
+                            {
+                                return RedirectToAction("index");
+                            }
+                            else
+                            {
+                                foreach (var item in result.Errors)
+                                {
+                                    ModelState.AddModelError("", item.Description);
+                                }
 
-                        ModelState.AddModelError("", e.Message);
+                            }
+                        }
+                        catch (Exception e)
+                        {
+
+                            ModelState.AddModelError("", e.Message);
+                        }
                     }
                    
                }
