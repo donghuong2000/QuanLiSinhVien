@@ -13,7 +13,7 @@ namespace QuanLiSinhVien.Areas.Teacher.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Subject", new { area = "Teacher" });
         }
     }
 }

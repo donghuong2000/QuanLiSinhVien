@@ -37,6 +37,12 @@ namespace QuanLiSinhVien
                 options.Password.RequireNonAlphanumeric = false;
                 })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = $"/Identity/Account/Login";
+                options.LogoutPath = $"/Identity/Account/Logout";
+                options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+            });
             services.AddControllersWithViews().AddNewtonsoftJson(option =>
             {
                 option.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
@@ -63,7 +69,7 @@ namespace QuanLiSinhVien
             app.UseStaticFiles();
             
             app.UseRouting();
-
+           
             app.UseAuthentication();
             app.UseAuthorization();
 
