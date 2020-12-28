@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using QuanLiSinhVien.Models;
+using QuanLiSinhVien.Utilities;
 
 namespace QuanLiSinhVien.Areas.Identity.Pages.Account
 {
@@ -20,12 +21,14 @@ namespace QuanLiSinhVien.Areas.Identity.Pages.Account
     {
         private readonly UserManager<Person> _userManager;
         private readonly SignInManager<Person> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<Person> signInManager, 
+        public LoginModel(SignInManager<Person> signInManager, RoleManager<IdentityRole> roleManager,
             ILogger<LoginModel> logger,
             UserManager<Person> userManager)
         {
+            _roleManager = roleManager;
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
@@ -83,7 +86,8 @@ namespace QuanLiSinhVien.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    var roles = await _userManager.GetRolesAsync(await _userManager.FindByNameAsync(Input.Username));
+                    return RedirectToAction("Index", "Home", new { area = roles[0] });
                 }
                 if (result.RequiresTwoFactor)
                 {

@@ -152,7 +152,7 @@ namespace QuanLiSinhVien.Data
                 entity.HasOne(d => d.Person)
                     .WithOne(p => p.Students)
                     .HasForeignKey<Student>(d => d.PersonId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_Student_Person");
             });
 
@@ -195,7 +195,7 @@ namespace QuanLiSinhVien.Data
                 entity.HasOne(d => d.Person)
                     .WithOne(p => p.Teachers)
                     .HasForeignKey<Teacher>(d => d.PersonId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_Teachers_Person");
             });
 

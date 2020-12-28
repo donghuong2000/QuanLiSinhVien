@@ -1,0 +1,102 @@
+﻿@model List<ExamScore>
+@{
+    ViewData["Title"] = "MarkStudent";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 0;
+}
+
+<h2>Mark Student</h2>
+<form method="post" asp-action="MarkStudent" class="mx-5">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row ">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Student code</label>
+                <input type="text" readonly class="form-control" value="@ViewBag.Student.StudentCode" />
+
+                <input hidden type="text" readonly class="form-control" name="studentId" value="@ViewBag.Student.PersonId" />
+               
+            </div>
+           
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Subject</label>
+                <input readonly type="text" class="form-control " value="@ViewBag.Subject.Name" />
+                <input hidden type="text" class="form-control " name="subjectId" value="@ViewBag.Subject.Id" />
+
+            </div>
+        </div>
+        <div class="container">
+            <div class="row clearfix">
+                <div class="col-md-12">
+                    <table class="table table-bordered table-hover" id="tab_logic">
+                        <thead>
+                            <tr>
+                                <th class="text-center"> No</th>
+                                <th class="text-center"> Exam Type</th>
+                                <th class="text-center"> Exam Score</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableproduct">
+                            @if (Model.Count == 0)
+                            {
+                                <tr id='addr0'>
+                                    <td>1</td>
+                                    <td>
+                                        <select name='examType[]' class="form-control " asp-items="ViewBag.ExamTypeList">
+                                            <option value="">Chosen Exam Type</option>
+                                        </select>
+                                    </td>
+                                    <td><input type="number" name='score[]' placeholder='Nhập số lượng' class="form-control qty" step="0" min="0" max="10" value="0" /></td>
+                                </tr>
+                                <tr id='addr1'></tr>
+                            }
+                            else
+                            {
+
+                                foreach (var item in Model)
+                                {
+                                    string aa = "addr" + i;
+                                    <tr id="@aa">
+                                        <td>@(i+1)</td>
+                                        <td>
+                                            <select name='examType[]' class="form-control" asp-for="@item.ExamTypeId" asp-items="ViewBag.ExamTypeList">
+                                                <option value="">Chosen Exam Type</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="number" name='score[]' value="@item.Score" placeholder='Nhập số lượng' class="form-control qty" step="0" max="10" min="0" /></td>
+                                    </tr>
+                                    i++;
+                                }
+                                <tr id='@("addr"+i)'></tr>
+                                
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+           
+            <div class="row clearfix">
+                <div class="col-md-12">
+                    <a id="add_row" class="btn btn-primary ">Add Row</a>
+                    <a id='delete_row' class=" btn btn-danger">Delete Row</a>
+                </div>
+            </div>
+            <input type="submit" value="Update Mark" class="btn btn-outline-secondary form-control" />
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="~/js/build/toastr.min.js"></script>
+
+    <script src="~/js/chamdiem.js"></script>
+}
+@section Header{
+    <link href="~/js/build/toastr.css" rel="stylesheet" />
+
+}
+

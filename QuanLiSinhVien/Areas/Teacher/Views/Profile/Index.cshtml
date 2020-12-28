@@ -1,0 +1,94 @@
+﻿@model QuanLiSinhVien.Models.ViewModels.TeacherProfileViewModel
+
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center">Profile</h1>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form asp-action="Index">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <div hidden class="form-group">
+                    <label asp-for="Teacher.PersonId" class="control-label"></label>
+                    <input readonly asp-for="Teacher.PersonId" class="form-control" />
+                    <span asp-validation-for="Teacher.PersonId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Teacher.Faculty.Name" class="control-label">Faculty</label>
+                    <input readonly asp-for="Teacher.Faculty.Name" class="form-control" />
+                    <span asp-validation-for="Teacher.Faculty.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Teacher.Person.Name" class="control-label"></label>
+                    <input asp-for="Teacher.Person.Name" class="form-control" />
+                    <span asp-validation-for="Teacher.Person.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Teacher.Person.Address" class="control-label"></label>
+                    <input asp-for="Teacher.Person.Address" class="form-control" />
+                    <span asp-validation-for="Teacher.Person.Address" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Teacher.Person.Email" class="control-label"></label>
+                    <input asp-for="Teacher.Person.Email" class="form-control" />
+                    <span asp-validation-for="Teacher.Person.Email" class="text-danger"></span>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" asp-for="IsChangePassworld">
+                    <label class="custom-control-label" asp-for="IsChangePassworld">Change Password</label>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CurrentPassword" class="control-label"></label>
+                    <input asp-for="CurrentPassword" class="form-control" disabled />
+                    <span asp-validation-for="CurrentPassword" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label"></label>
+                    <input asp-for="Password" class="form-control" disabled />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword" class="control-label"></label>
+                    <input asp-for="ConfirmPassword" class="form-control" disabled />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Update" class="btn btn-primary form-control" />
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $('#IsChangePassworld').on('change', function () {
+            var isCheck = $(this)[0].checked;
+            if (isCheck) {
+                $('#Password')[0].disabled = false;
+                $('#ConfirmPassword')[0].disabled = false;
+                $('#CurrentPassword')[0].disabled = false;
+            }
+            else {
+                $('#Password')[0].disabled = true;
+                $('#ConfirmPassword')[0].disabled = true;
+                $('#CurrentPassword')[0].disabled = true;
+            }
+
+
+        })
+
+
+
+    </script>
+
+
+
+}
+
+
