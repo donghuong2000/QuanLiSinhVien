@@ -137,6 +137,14 @@ namespace QuanLiSinhVien.Areas.Teacher.Controllers
                 {
                     throw new Exception("duplicated examtype");
                 }    
+                if( examType.Contains(null) || examType.Contains(""))
+                {
+                    throw new Exception(" examtype isvalid");
+                }    
+                if(score.Any(x=>x>11 && x<0))
+                {
+                    throw new Exception(" Score between 0 and 10");
+                }    
                 List<ExamScore> listScore = new List<ExamScore>();
                 for (int i = 0; i < examType.Length; i++)
                 {
@@ -174,5 +182,23 @@ namespace QuanLiSinhVien.Areas.Teacher.Controllers
 
             
         }
+
+        public IActionResult Delete(string id)
+        {
+            try
+            {
+                var sub = _db.Subjects.Find(id);
+                _db.Remove(sub);
+                _db.SaveChanges();
+                return Json(new { success = true, message = "Remove subject success" });
+
+            }
+            catch (Exception e)
+            {
+
+                return Json(new { success = false, message = e.InnerException.Message });
+            }
+        }
+
     }
 }

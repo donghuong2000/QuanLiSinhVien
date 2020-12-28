@@ -48,7 +48,7 @@
                                             <option value="">Chosen Exam Type</option>
                                         </select>
                                     </td>
-                                    <td><input type="number" name='score[]' placeholder='Nhập số lượng' class="form-control qty" step="0" min="0" value="0" /></td>
+                                    <td><input type="number" name='score[]' placeholder='Nhập số lượng' class="form-control qty" step="0" min="0" max="10" value="0" /></td>
                                 </tr>
                                 <tr id='addr1'></tr>
                             }
@@ -65,7 +65,7 @@
                                                 <option value="">Chosen Exam Type</option>
                                             </select>
                                         </td>
-                                        <td><input type="number" name='score[]' value="@item.Score" placeholder='Nhập số lượng' class="form-control qty" step="0" min="0" /></td>
+                                        <td><input type="number" name='score[]' value="@item.Score" placeholder='Nhập số lượng' class="form-control qty" step="0" max="10" min="0" /></td>
                                     </tr>
                                     i++;
                                 }
