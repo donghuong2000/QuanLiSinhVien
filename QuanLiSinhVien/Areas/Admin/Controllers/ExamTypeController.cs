@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using QuanLiSinhVien.Data;
 using QuanLiSinhVien.Models;
+using System;
+using System.Linq;
 
 namespace QuanLiSinhVien.Areas.Admin.Controllers
 {
@@ -23,7 +21,7 @@ namespace QuanLiSinhVien.Areas.Admin.Controllers
         public IActionResult GetAll()
         {
             var obj = _db.ExamType.ToList();
-            return Json(new { data=obj});
+            return Json(new { data = obj });
         }
         public IActionResult Upsert(string id)
         {
@@ -42,7 +40,7 @@ namespace QuanLiSinhVien.Areas.Admin.Controllers
             {
                 if (et.Id == null)
                 {
-                    _db.ExamType.Add(new ExamType() { Id = Guid.NewGuid().ToString(), Name =et.Name });
+                    _db.ExamType.Add(new ExamType() { Id = Guid.NewGuid().ToString(), Name = et.Name });
                     _db.SaveChanges();
                     return RedirectToAction("index");
                 }

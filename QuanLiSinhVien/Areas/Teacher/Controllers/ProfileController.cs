@@ -6,7 +6,6 @@ using QuanLiSinhVien.Data;
 using QuanLiSinhVien.Models;
 using QuanLiSinhVien.Models.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -14,7 +13,7 @@ using System.Threading.Tasks;
 namespace QuanLiSinhVien.Areas.Teacher.Controllers
 {
     [Area("Teacher")]
-    [Authorize(Roles ="Teacher")]
+    [Authorize(Roles = "Teacher")]
     public class ProfileController : Controller
     {
         private readonly ApplicationDbContext _db;
@@ -82,7 +81,7 @@ namespace QuanLiSinhVien.Areas.Teacher.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("index","home");
+                    return RedirectToAction("index", "home");
                 }
 
             }

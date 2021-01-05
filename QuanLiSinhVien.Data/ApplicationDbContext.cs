@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using QuanLiSinhVien.Models;
 
 namespace QuanLiSinhVien.Data
 {
-    public  class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -199,9 +196,9 @@ namespace QuanLiSinhVien.Data
                     .HasConstraintName("FK_Teachers_Person");
             });
 
-            
+
         }
 
-       
+
     }
 }

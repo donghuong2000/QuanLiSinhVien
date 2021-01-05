@@ -1,5 +1,3 @@
-using System;
-
 namespace QuanLiSinhVien.Models
 {
     public class ErrorViewModel

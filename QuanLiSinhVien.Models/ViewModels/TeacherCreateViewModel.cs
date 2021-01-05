@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace QuanLiSinhVien.Models.ViewModels
 {
@@ -16,7 +12,7 @@ namespace QuanLiSinhVien.Models.ViewModels
         [Required(ErrorMessage = "Phải nhập Email")]
         public string Mail { get; set; }
 
-        
+
 
         [Required(ErrorMessage = "Phải nhập sdt")]
         [MinLength(8, ErrorMessage = "SDT không hợp lệ")]

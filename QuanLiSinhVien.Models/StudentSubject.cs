@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace QuanLiSinhVien.Models
+﻿namespace QuanLiSinhVien.Models
 {
     public partial class StudentSubject
     {

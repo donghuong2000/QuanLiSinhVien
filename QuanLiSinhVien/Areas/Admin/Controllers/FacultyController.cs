@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QuanLiSinhVien.Data;
 using QuanLiSinhVien.Models;
+using System;
+using System.Linq;
 
 namespace QuanLiSinhVien.Areas.Admin.Controllers
 {
@@ -25,7 +23,7 @@ namespace QuanLiSinhVien.Areas.Admin.Controllers
 
         public IActionResult GetAll()
         {
-            var obj =  _db.Faculties.Include(x => x.Teachers).Select(x => new
+            var obj = _db.Faculties.Include(x => x.Teachers).Select(x => new
             {
                 id = x.Id,
                 name = x.Name,

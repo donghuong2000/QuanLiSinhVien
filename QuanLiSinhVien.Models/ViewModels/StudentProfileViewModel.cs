@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace QuanLiSinhVien.Models.ViewModels
 {
@@ -16,7 +13,7 @@ namespace QuanLiSinhVien.Models.ViewModels
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Compare("Password",ErrorMessage ="Password no like")]
+        [Compare("Password", ErrorMessage = "Password no like")]
         public string ConfirmPassword { get; set; }
     }
 }

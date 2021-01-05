@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace QuanLiSinhVien.Utilities
+﻿namespace QuanLiSinhVien.Utilities
 {
     public class SD
     {

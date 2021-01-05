@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,6 +6,10 @@ using Microsoft.EntityFrameworkCore;
 using QuanLiSinhVien.Data;
 using QuanLiSinhVien.Models;
 using QuanLiSinhVien.Models.ViewModels;
+using System;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace QuanLiSinhVien.Areas.Student.Controllers
 {
@@ -53,7 +52,7 @@ namespace QuanLiSinhVien.Areas.Student.Controllers
         public IActionResult Index()
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            ViewBag.SubjectList = new SelectList(_db.Subjects.Include(x => x.StudentSubject).Where(x => x.TeacherId != null && x.StudentSubject.Any(x => x.StudentId == userId) == false).ToList(),"Id","Name");
+            ViewBag.SubjectList = new SelectList(_db.Subjects.Include(x => x.StudentSubject).Where(x => x.TeacherId != null && x.StudentSubject.Any(x => x.StudentId == userId) == false).ToList(), "Id", "Name");
             return View();
         }
         public IActionResult RegisterSubject(string id)
@@ -61,12 +60,12 @@ namespace QuanLiSinhVien.Areas.Student.Controllers
             try
             {
                 var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                var re = new StudentSubject() {StudentId = userId,SubjectId = id };
+                var re = new StudentSubject() { StudentId = userId, SubjectId = id };
                 _db.StudentSubject.Add(re);
                 _db.SaveChanges();
                 return Json(new { success = true, message = "Register Subject success" });
             }
-            catch (Exception e )
+            catch (Exception e)
             {
 
                 return Json(new { success = false, message = e.InnerException.Message });
@@ -86,7 +85,7 @@ namespace QuanLiSinhVien.Areas.Student.Controllers
                 _db.SaveChanges();
                 return Json(new { success = true, message = "Canncel Subject success" });
             }
-            catch (Exception e )
+            catch (Exception e)
             {
 
                 return Json(new { success = false, message = e.InnerException.Message });
@@ -97,7 +96,7 @@ namespace QuanLiSinhVien.Areas.Student.Controllers
         public IActionResult Profile()
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var student = _db.Students.Include(x=>x.Class).Include(x => x.Person).FirstOrDefault(x => x.PersonId == userId);
+            var student = _db.Students.Include(x => x.Class).Include(x => x.Person).FirstOrDefault(x => x.PersonId == userId);
             StudentProfileViewModel vm = new StudentProfileViewModel();
             vm.Student = student;
 
@@ -106,7 +105,7 @@ namespace QuanLiSinhVien.Areas.Student.Controllers
         [HttpPost]
         public async Task<IActionResult> Profile(StudentProfileViewModel vm)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var student = _db.Students.Include(x => x.Person).Where(x => x.PersonId == vm.Student.PersonId).FirstOrDefault();
                 student.Person.Name = vm.Student.Person.Name;
@@ -116,7 +115,7 @@ namespace QuanLiSinhVien.Areas.Student.Controllers
                 _db.Update(student);
                 _db.SaveChanges();
                 if (vm.IsChangePassworld)
-               {// có đổi mk
+                {// có đổi mk
                     if (vm.Password.Length < 4 || vm.CurrentPassword.Length < 4 || vm.ConfirmPassword.Length < 4)
                     {
                         ModelState.AddModelError("", "Mk ko hợp lệ");
@@ -145,13 +144,13 @@ namespace QuanLiSinhVien.Areas.Student.Controllers
                             ModelState.AddModelError("", e.Message);
                         }
                     }
-                   
-               }
+
+                }
                 else
                 {
                     return RedirectToAction("index");
                 }
-              
+
             }
             return View(vm);
         }
