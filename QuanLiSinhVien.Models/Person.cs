@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
 
 namespace QuanLiSinhVien.Models
 {
-    public class Person :IdentityUser
+    public class Person : IdentityUser
     {
         public string Name { get; set; }
         public string Address { get; set; }

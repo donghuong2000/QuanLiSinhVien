@@ -1,19 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using QuanLiSinhVien.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using QuanLiSinhVien.Models;
 using Newtonsoft.Json;
+using QuanLiSinhVien.Data;
+using QuanLiSinhVien.Models;
 
 namespace QuanLiSinhVien
 {
@@ -32,10 +26,11 @@ namespace QuanLiSinhVien
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddIdentity<Person,IdentityRole>(options => {
+            services.AddIdentity<Person, IdentityRole>(options =>
+            {
                 options.SignIn.RequireConfirmedAccount = false;
                 options.Password.RequireNonAlphanumeric = false;
-                })
+            })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.ConfigureApplicationCookie(options =>
             {
@@ -48,7 +43,7 @@ namespace QuanLiSinhVien
                 option.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
             services.AddRazorPages();
-            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,9 +62,9 @@ namespace QuanLiSinhVien
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            
+
             app.UseRouting();
-           
+
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -90,7 +85,7 @@ namespace QuanLiSinhVien
                     pattern: "Admin/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapAreaControllerRoute(
                     name: "default",
-                    areaName:"Admin",
+                    areaName: "Admin",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });

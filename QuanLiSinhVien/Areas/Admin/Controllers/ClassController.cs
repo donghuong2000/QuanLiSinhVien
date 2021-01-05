@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QuanLiSinhVien.Data;
 using QuanLiSinhVien.Models;
+using System;
+using System.Linq;
 
 namespace QuanLiSinhVien.Areas.Admin.Controllers
 {
@@ -23,22 +21,23 @@ namespace QuanLiSinhVien.Areas.Admin.Controllers
         }
         public IActionResult GetAll()
         {
-           var obj =  _db.Classes.Include(x => x.Students).Select(x => new {
+            var obj = _db.Classes.Include(x => x.Students).Select(x => new
+            {
                 id = x.Id,
                 name = x.Name,
-                student = x.Students==null?"Empty":x.Students.Count + " students"
+                student = x.Students == null ? "Empty" : x.Students.Count + " students"
             })
-            .ToList();
+             .ToList();
             return Json(new { data = obj });
         }
         public IActionResult Upsert(string id)
         {
-           if(id==null)
-           {
+            if (id == null)
+            {
                 return View(new Class());
-           }
+            }
             var oldClass = _db.Classes.FirstOrDefault(x => x.Id == id);
-            if(oldClass==null)
+            if (oldClass == null)
             {
                 return NotFound();
             }
@@ -56,7 +55,7 @@ namespace QuanLiSinhVien.Areas.Admin.Controllers
                     return RedirectToAction("index");
                 }
                 var oldClass = _db.Classes.FirstOrDefault(x => x.Id == _class.Id);
-                if(oldClass!= null)
+                if (oldClass != null)
                 {
                     try
                     {
@@ -65,12 +64,12 @@ namespace QuanLiSinhVien.Areas.Admin.Controllers
                         _db.SaveChanges();
                         return RedirectToAction("index");
                     }
-                    catch (Exception e )
+                    catch (Exception e)
                     {
 
                         ModelState.AddModelError("", e.Message);
                     }
-                    
+
                 }
                 ModelState.AddModelError("", "Error");
             }

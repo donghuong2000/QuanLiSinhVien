@@ -49,7 +49,7 @@ namespace QuanLiSinhVien.Areas.Admin.Controllers
 
             var labels = a.Select(x => x.Key).ToArray();
             var values = a.Select(x => x.mark).ToArray();
-            return Json(new {labels,values });
+            return Json(new { labels, values });
         }
     }
 }

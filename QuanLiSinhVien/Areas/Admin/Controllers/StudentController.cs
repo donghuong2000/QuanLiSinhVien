@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +6,9 @@ using QuanLiSinhVien.Data;
 using QuanLiSinhVien.Models;
 using QuanLiSinhVien.Models.ViewModels;
 using QuanLiSinhVien.Utilities;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace QuanLiSinhVien.Areas.Admin.Controllers
 {
@@ -51,9 +50,9 @@ namespace QuanLiSinhVien.Areas.Admin.Controllers
                 var result = await _userManager.CreateAsync(user, vm.Password);
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(user,SD.Student);
+                    await _userManager.AddToRoleAsync(user, SD.Student);
                     var s = await _userManager.FindByNameAsync(user.UserName);
-                    var student = new Models.Student() {StudentCode=vm.StudentCode, PersonId = s.Id, ClassId = vm.ClassId };
+                    var student = new Models.Student() { StudentCode = vm.StudentCode, PersonId = s.Id, ClassId = vm.ClassId };
                     _db.Students.Add(student);
                     _db.SaveChanges();
                     return RedirectToAction("index", "User", new { area = "admin" });
@@ -73,7 +72,7 @@ namespace QuanLiSinhVien.Areas.Admin.Controllers
         }
         public IActionResult GetAll()
         {
-            var obj = _db.Students.Include(x=>x.Person).Include(x=>x.Class).Select(x => new
+            var obj = _db.Students.Include(x => x.Person).Include(x => x.Class).Select(x => new
             {
                 id = x.Person.Id,
                 sc = x.StudentCode,

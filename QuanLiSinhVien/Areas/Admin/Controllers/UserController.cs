@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using QuanLiSinhVien.Models;
 using QuanLiSinhVien.Models.ViewModels;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace QuanLiSinhVien.Areas.Admin.Controllers
 {
@@ -130,8 +129,8 @@ namespace QuanLiSinhVien.Areas.Admin.Controllers
 
                 return Json(new { success = false, message = e.Message });
             }
-            
-            
+
+
 
 
         }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +6,9 @@ using QuanLiSinhVien.Data;
 using QuanLiSinhVien.Models;
 using QuanLiSinhVien.Models.ViewModels;
 using QuanLiSinhVien.Utilities;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace QuanLiSinhVien.Areas.Admin.Controllers
 {
@@ -51,9 +50,9 @@ namespace QuanLiSinhVien.Areas.Admin.Controllers
                 var result = await _userManager.CreateAsync(user, vm.Password);
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(user,SD.Teacher);
+                    await _userManager.AddToRoleAsync(user, SD.Teacher);
                     var s = await _userManager.FindByNameAsync(user.UserName);
-                    var teacher = new Models.Teacher() {  PersonId = s.Id, FacultyId = vm.FaculityId };
+                    var teacher = new Models.Teacher() { PersonId = s.Id, FacultyId = vm.FaculityId };
                     _db.Teachers.Add(teacher);
                     _db.SaveChanges();
                     return RedirectToAction("index", "Teacher", new { area = "admin" });
@@ -76,7 +75,7 @@ namespace QuanLiSinhVien.Areas.Admin.Controllers
             var obj = _db.Teachers.Include(x => x.Person).Include(x => x.Faculty).Select(x => new
             {
                 id = x.Person.Id,
-                
+
                 username = x.Person.UserName,
                 email = x.Person.Email,
                 sdt = x.Person.PhoneNumber,

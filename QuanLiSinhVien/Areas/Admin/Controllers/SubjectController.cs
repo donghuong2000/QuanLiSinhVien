@@ -3,9 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using QuanLiSinhVien.Data;
 using QuanLiSinhVien.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace QuanLiSinhVien.Areas.Admin.Controllers
 {
@@ -26,14 +24,14 @@ namespace QuanLiSinhVien.Areas.Admin.Controllers
         public IActionResult GetAll()
         {
             var subjectlist = _db.Subjects
-                .Include(x => x.Teacher).ThenInclude(x=>x.Person)
+                .Include(x => x.Teacher).ThenInclude(x => x.Person)
                 .Include(x => x.StudentSubject)
                 .Select(x => new
                 {
                     id = x.Id,
                     name = x.Name,
                     credits = x.Credits,
-                    teach = x.Teacher==null? "No Assign Yet":x.Teacher.Person.Name,
+                    teach = x.Teacher == null ? "No Assign Yet" : x.Teacher.Person.Name,
                     student = x.StudentSubject == null ? "0 Student" : x.StudentSubject.Count() + " Student"
 
                 }).ToList();
@@ -58,10 +56,10 @@ namespace QuanLiSinhVien.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Upsert(Subject subject)
         {
-           if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 // add
-                if(subject.Id == null)
+                if (subject.Id == null)
                 {
                     subject.Id = Guid.NewGuid().ToString();
                     _db.Subjects.Add(subject);
@@ -78,7 +76,7 @@ namespace QuanLiSinhVien.Areas.Admin.Controllers
                 _db.Subjects.Update(oldSubject);
                 _db.SaveChanges();
                 return RedirectToAction("index");
-           }     
+            }
             return View(subject);
         }
 
