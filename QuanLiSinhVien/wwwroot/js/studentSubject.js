@@ -34,7 +34,7 @@ function LoadInfo() {
                 }
                 raw += ScoreRaw + `
                                 </div>
-                                <h3>điểm trung bình: ${data[i].avgScore}</h3>
+                                <h3> Average score: ${data[i].avgScore}</h3>
                                 <a onclick=CancelSubject("${data[i].subjectid}") class="btn btn-danger"> Cancel</a>
                             </div>
                         </div>`

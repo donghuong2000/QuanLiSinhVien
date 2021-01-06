@@ -6,8 +6,7 @@ namespace QuanLiSinhVien.Models.ViewModels
     {
         [Required(ErrorMessage = "Phải nhập tên cho User")]
         public string Name { get; set; }
-        public string StudentCode { get; set; }
-
+        
         [DataType(DataType.EmailAddress, ErrorMessage = "Email không hợp lệ")]
         [Required(ErrorMessage = "Phải nhập Email")]
         public string Mail { get; set; }
@@ -29,6 +28,7 @@ namespace QuanLiSinhVien.Models.ViewModels
         [DataType(DataType.Password)]
         public string ComfirmPassword { get; set; }
 
+        [Required(ErrorMessage = "Phải Chọn khoa")]
         public string FaculityId { get; set; }
 
 

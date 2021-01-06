@@ -34,8 +34,8 @@ function LoadInfo() {
                 }
                  raw+=ScoreRaw+ `
                                 </div>
-                                <h3>điểm trung bình: ${data[i].avgScore}</h3>
-                                <a href="/Teacher/Subject/MarkStudent?subjectId=${data[i].subjectId}&studentId=${data[i].studentId}" class="btn btn-primary">Chỉnh sửa điểm</a>
+                                <h3>Average Score: ${data[i].avgScore}</h3>
+                                <a href="/Teacher/Subject/MarkStudent?subjectId=${data[i].subjectId}&studentId=${data[i].studentId}" class="btn btn-primary">Update Score</a>
                             </div>
                         </div>`
             }

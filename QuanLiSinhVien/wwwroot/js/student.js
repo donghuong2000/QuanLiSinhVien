@@ -41,7 +41,7 @@ $(document).ready(function () {
                 "render": function (data) {
                     return `
                              <div class="text-center">
-                                <a href="#"class="btn btn-success text-white" style="cursor:pointer">
+                                <a href="/Admin/Student/update/${data}"class="btn btn-success text-white" style="cursor:pointer">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 <a onClick=Delete("/Admin/Student/Delete/${data}") class="btn btn-danger text-white" style="cursor:pointer">

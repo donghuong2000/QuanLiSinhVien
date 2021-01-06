@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace QuanLiSinhVien.Models
 {
@@ -11,7 +12,9 @@ namespace QuanLiSinhVien.Models
 
         public string Id { get; set; }
         public string TeacherId { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
         public int? Credits { get; set; }
 
         public virtual Teacher Teacher { get; set; }

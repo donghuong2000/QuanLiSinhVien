@@ -55,7 +55,7 @@ namespace QuanLiSinhVien.Areas.Admin.Controllers
                     var student = new Models.Student() { StudentCode = vm.StudentCode, PersonId = s.Id, ClassId = vm.ClassId };
                     _db.Students.Add(student);
                     _db.SaveChanges();
-                    return RedirectToAction("index", "User", new { area = "admin" });
+                    return RedirectToAction("index", "Student", new { area = "admin" });
                 }
                 else
                 {
@@ -69,6 +69,45 @@ namespace QuanLiSinhVien.Areas.Admin.Controllers
             }
             ViewBag.ListClass = new SelectList(_db.Classes.ToList(), "Id", "Name");
             return View(vm);
+        }
+
+        public IActionResult Update(string id)
+        {
+            try
+            {
+                ViewBag.ClassId = new SelectList(_db.Classes.ToList(), "Id", "Name");
+                var s = _db.Students.Find(id);
+                return View(s);
+            }
+            catch (Exception)
+            {
+
+                return NotFound();
+            }
+           
+
+        }
+        [HttpPost]
+        public IActionResult Update(Models.Student student)
+        {
+            if(ModelState.IsValid)
+            {
+                try
+                {
+                    _db.Update(student);
+                    _db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+
+                    ModelState.AddModelError("", e.Message);
+                }
+            }
+            return View(student);
+            
+
+
         }
         public IActionResult GetAll()
         {

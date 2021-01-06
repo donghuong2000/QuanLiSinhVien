@@ -34,6 +34,45 @@ namespace QuanLiSinhVien.Areas.Admin.Controllers
             ViewBag.ListFaculty = new SelectList(_db.Faculties.ToList(), "Id", "Name");
             return View();
         }
+        public IActionResult Update(string id)
+        {
+            ViewBag.ListFaculty = new SelectList(_db.Faculties.ToList(), "Id", "Name");
+            try
+            {
+                var s = _db.Teachers.Find(id);
+                return View(s);
+            }
+            catch (Exception)
+            {
+
+                return NotFound();
+            }
+           
+           
+        }
+        [HttpPost]
+        public IActionResult Update(Models.Teacher teacher)
+        {
+            ViewBag.ListFaculty = new SelectList(_db.Faculties.ToList(), "Id", "Name");
+            if(ModelState.IsValid)
+            {
+                try
+                {
+                    _db.Update(teacher);
+                    _db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e )
+                {
+
+                    ModelState.AddModelError("", e.Message);
+                }
+            }
+            return View(teacher);
+            
+
+
+        }
         [HttpPost]
         public async Task<IActionResult> Create(TeacherCreateViewModel vm)
         {

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace QuanLiSinhVien.Models
 {
@@ -9,8 +10,11 @@ namespace QuanLiSinhVien.Models
             StudentSubject = new HashSet<StudentSubject>();
         }
 
+        [Required]
         public string PersonId { get; set; }
+        [Required]
         public string StudentCode { get; set; }
+        [Required]
         public string ClassId { get; set; }
 
         public virtual Class Class { get; set; }

@@ -45,7 +45,7 @@ namespace QuanLiSinhVien.Areas.Student.Controllers
                                          })
                                          .ToList(),
                     avgScore = _db.ExamScore
-                    .Where(s => s.SubjectId == x.SubjectId && s.StudentId == userId).Select(x => x.Score).Average()
+                    .Where(s => s.SubjectId == x.SubjectId && s.StudentId == userId).Select(x => x.Score).Average()??0
                 }).ToList();
             return Json(obj);
         }

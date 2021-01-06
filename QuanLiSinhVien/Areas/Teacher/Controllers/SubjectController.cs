@@ -89,7 +89,7 @@ namespace QuanLiSinhVien.Areas.Teacher.Controllers
                     studentId = x.StudentId,
                     subjectId = x.SubjectId,
                     studentName = x.Student.Person.Name,
-                    avgScore = _db.ExamScore.Where(y => y.SubjectId == id && y.StudentId == x.StudentId).Select(y => y.Score).Average(),
+                    avgScore = _db.ExamScore.Where(y => y.SubjectId == id && y.StudentId == x.StudentId).Select(y => y.Score).Average()??0,
 
 
 
