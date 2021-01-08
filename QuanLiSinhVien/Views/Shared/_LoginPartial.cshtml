@@ -15,22 +15,13 @@
         <!-- Dropdown - User Information -->
         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
              aria-labelledby="userDropdown">
-            @if (User.IsInRole("Student"))
+            @if (User.IsInRole("Student") || User.IsInRole("Teacher"))
             {
                 <a class="dropdown-item" asp-action="Profile" asp-controller="Home">
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     Profile
                 </a>
             }
-            else
-            {
-                <a class="dropdown-item" asp-action="Index" asp-controller="Profile">
-                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Profile
-                </a>
-            }
-
-
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/">
                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
